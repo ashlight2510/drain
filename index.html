@@ -20,6 +20,10 @@
       property="og:image"
       content="https://dummyimage.com/1200x630/1f2937/f9fafb&text=Energy+Drain"
     />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20100%20100%27%3E%3Ctext%20y%3D%27.9em%27%20font-size%3D%2790%27%3E%F0%9F%94%8C%3C/text%3E%3C/svg%3E"
+    />
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -58,6 +62,11 @@
         transform: scale(0.98);
       }
     </style>
+    <meta property="og:image:alt" content="Energy Drain" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20100%20100%27%3E%3Ctext%20y%3D%27.9em%27%20font-size%3D%2790%27%3E%F0%9F%94%8C%3C/text%3E%3C/svg%3E"
+    />
   </head>
   <body
     class="min-h-screen bg-gradient-to-br from-purple-100 via-blue-50 to-indigo-100 py-8 px-4"
@@ -76,8 +85,8 @@
             지금 나는 어디로 새고 있는가
           </h1>
           <p class="text-gray-600 text-base md:text-lg leading-relaxed">
-            요즘 번아웃, 무기력, 집중력 저하… 문제는 게으름이 아니라 에너지
-            누수일지 모릅니다.
+            요즘 번아웃, 무기력, 집중력 저하… <br />
+            문제는 게으름이 아니라 에너지 누수일지 모릅니다.
           </p>
         </div>
 
@@ -202,6 +211,13 @@
               class="w-full py-4 bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-semibold rounded-xl hover:from-purple-600 hover:to-indigo-700 transition-all duration-200"
             >
               결과 공유하기
+            </button>
+            <button
+              id="more-tests-btn"
+              data-url="https://funnyfunny.cloud/"
+              class="w-full py-4 bg-white border border-purple-100 text-purple-700 font-semibold rounded-xl hover:bg-purple-50 hover:border-purple-200 transition-all duration-200"
+            >
+              더 많은 테스트 해보기
             </button>
           </div>
         </div>
@@ -401,6 +417,7 @@
         const prevBtn = document.getElementById("prev-btn");
         const restartBtn = document.getElementById("restart-btn");
         const shareBtn = document.getElementById("share-btn");
+        const moreTestsBtn = document.getElementById("more-tests-btn");
         const progressText = document.getElementById("progress-text");
         const progressCount = document.getElementById("progress-count");
         const progressBar = document.getElementById("progress-bar");
@@ -587,6 +604,14 @@
             }
           }
         });
+
+        // 더 많은 테스트 해보기
+        if (moreTestsBtn) {
+          moreTestsBtn.addEventListener("click", function () {
+            const targetUrl = moreTestsBtn.dataset.url || "https://funnyfunny.cloud/";
+            window.open(targetUrl, "_blank", "noopener");
+          });
+        }
       })();
     </script>
   </body>
