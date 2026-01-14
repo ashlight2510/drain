@@ -29,6 +29,43 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
+      .lang-switch {
+        position: fixed;
+        top: 16px;
+        right: 16px;
+        display: inline-flex;
+        gap: 0;
+        padding: 3px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        z-index: 100;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+      }
+      .lang-switch button {
+        border: none;
+        background: transparent;
+        color: #666;
+        font-size: 12px;
+        font-weight: 700;
+        padding: 7px 14px;
+        border-radius: 999px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        min-width: 44px;
+        text-align: center;
+        letter-spacing: 0.02em;
+      }
+      .lang-switch button.active {
+        background: #8b5cf6;
+        color: #fff;
+        box-shadow: 0 2px 8px rgba(139, 92, 246, 0.4);
+      }
+      .lang-switch button:not(.active):hover {
+        background: rgba(139, 92, 246, 0.1);
+        color: #8b5cf6;
+      }
       body {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
           "Noto Sans KR", sans-serif;
@@ -109,20 +146,26 @@
 </head>
   <body
     class="min-h-screen bg-gradient-to-br from-purple-100 via-blue-50 to-indigo-100 py-8 px-4"
-  ><div class="max-w-2xl mx-auto">
+  >
+    <div class="lang-switch" role="tablist" aria-label="Language switcher">
+      <button type="button" data-lang="ko" class="active">KR</button>
+      <button type="button" data-lang="en">EN</button>
+    </div>
+    <div class="max-w-2xl mx-auto">
       <!-- 메인 카드 -->
       <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
         <!-- 헤더 영역 -->
         <div id="header-section" class="text-center mb-8">
           <div
             class="inline-block px-3 py-1 bg-purple-100 text-purple-700 text-sm font-medium rounded-full mb-4"
+            data-i18n="badge"
           >
             인생 에너지 누수 진단기
           </div>
-          <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4" data-i18n="title">
             지금 나는 어디로 새고 있는가
           </h1>
-          <p class="text-gray-600 text-base md:text-lg leading-relaxed">
+          <p class="text-gray-600 text-base md:text-lg leading-relaxed" data-i18n-html="subtitle">
             요즘 번아웃, 무기력, 집중력 저하… <br />
             문제는 게으름이 아니라 에너지 누수일지 모릅니다.
           </p>
@@ -133,6 +176,7 @@
           <button
             id="start-btn"
             class="w-full py-4 bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-semibold rounded-xl hover:from-purple-600 hover:to-indigo-700 transition-all duration-200 transform hover:scale-105 shadow-md"
+            data-i18n="btnStart"
           >
             시작하기
           </button>
@@ -144,7 +188,7 @@
           <div class="mb-6">
             <div class="flex justify-between items-center mb-2">
               <span class="text-sm font-medium text-gray-600" id="progress-text"
-                >Q1. 인생 에너지 누수 진단 중</span
+                data-i18n="progressText">Q1. 인생 에너지 누수 진단 중</span
               >
               <span
                 class="text-sm font-semibold text-purple-600"
@@ -177,6 +221,7 @@
             <button
               id="prev-btn"
               class="hidden px-6 py-2 text-gray-600 hover:text-gray-800 font-medium transition-colors"
+              data-i18n="btnPrev"
             >
               ← 이전
             </button>
@@ -186,7 +231,7 @@
         <!-- 결과 영역 -->
         <div id="result-section" class="hidden">
           <div class="text-center mb-6">
-            <p class="text-gray-600 mb-4">
+            <p class="text-gray-600 mb-4" data-i18n="resultIntro">
               당신의 인생 에너지는 여기서 새고 있습니다
             </p>
           </div>
@@ -214,7 +259,7 @@
 
           <!-- 하루 에너지 세이브 전략 -->
           <div class="mb-8">
-            <h3 class="text-xl font-semibold text-gray-900 mb-4">
+            <h3 class="text-xl font-semibold text-gray-900 mb-4" data-i18n="tipsTitle">
               하루 에너지 세이브 전략
             </h3>
             <ul id="result-tips" class="space-y-3"></ul>
@@ -225,12 +270,14 @@
             <button
               id="restart-btn"
               class="w-full py-4 bg-gray-100 text-gray-800 font-semibold rounded-xl hover:bg-gray-200 transition-all duration-200"
+              data-i18n="btnRestart"
             >
               다시 진단하기
             </button>
             <button
               id="share-btn"
               class="w-full py-4 bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-semibold rounded-xl hover:from-purple-600 hover:to-indigo-700 transition-all duration-200"
+              data-i18n="btnShare"
             >
               결과 공유하기
             </button>
@@ -238,6 +285,7 @@
               id="more-tests-btn"
               data-url="https://funnyfunny.cloud/"
               class="w-full py-4 bg-white border border-purple-100 text-purple-700 font-semibold rounded-xl hover:bg-purple-50 hover:border-purple-200 transition-all duration-200"
+              data-i18n="btnMoreTests"
             >
               더 많은 테스트 해보기
             </button>
@@ -248,7 +296,7 @@
         <div
           class="mt-12 pt-6 border-t border-gray-200 text-center text-sm text-gray-500 space-y-2"
         >
-          <p>※ 이 테스트는 재미와 자기 성찰을 위한 비의학적 도구입니다.</p>
+          <p data-i18n="footer">※ 이 테스트는 재미와 자기 성찰을 위한 비의학적 도구입니다.</p>
           <p>© AshLight</p>
         </div>
       </div>
@@ -457,17 +505,16 @@
 
         // 질문 표시
         function showQuestion(index) {
-          if (index < 0 || index >= questions.length) return;
+          const qs = getQuestions();
+          if (index < 0 || index >= qs.length) return;
 
           currentQuestionIndex = index;
-          const question = questions[index];
+          const question = qs[index];
 
           // 진행 상태 업데이트
-          progressText.textContent = `Q${index + 1}. 인생 에너지 누수 진단 중`;
-          progressCount.textContent = `${index + 1} / ${questions.length}`;
-          progressBar.style.width = `${
-            ((index + 1) / questions.length) * 100
-          }%`;
+          progressText.textContent = t("progressText").replace("Q1", `Q${index + 1}`);
+          progressCount.textContent = `${index + 1} / ${qs.length}`;
+          progressBar.style.width = `${((index + 1) / qs.length) * 100}%`;
 
           // 질문 제목
           questionTitle.textContent = question.title;
@@ -496,7 +543,8 @@
 
         // 선택지 클릭 처리
         function handleChoiceClick(value) {
-          const question = questions[currentQuestionIndex];
+          const qs = getQuestions();
+          const question = qs[currentQuestionIndex];
 
           // 답변 저장
           answers[currentQuestionIndex] = {
@@ -509,7 +557,7 @@
           scores[question.type] += value;
 
           // 다음 질문으로 이동
-          if (currentQuestionIndex < questions.length - 1) {
+          if (currentQuestionIndex < qs.length - 1) {
             setTimeout(() => {
               showQuestion(currentQuestionIndex + 1);
             }, 200);
@@ -550,7 +598,7 @@
           }
 
           // 결과 데이터
-          const result = resultTypes[resultType];
+          const result = getResultTypes()[resultType];
 
           // 결과 화면 표시
           questionSection.classList.add("hidden");
@@ -634,6 +682,288 @@
             window.open(targetUrl, "_blank", "noopener");
           });
         }
+
+        // i18n
+        const translations = {
+          ko: {
+            badge: "인생 에너지 누수 진단기",
+            title: "지금 나는 어디로 새고 있는가",
+            subtitle: "요즘 번아웃, 무기력, 집중력 저하… <br />문제는 게으름이 아니라 에너지 누수일지 모릅니다.",
+            btnStart: "시작하기",
+            progressText: "Q1. 인생 에너지 누수 진단 중",
+            btnPrev: "← 이전",
+            resultIntro: "당신의 인생 에너지는 여기서 새고 있습니다",
+            tipsTitle: "하루 에너지 세이브 전략",
+            btnRestart: "다시 진단하기",
+            btnShare: "결과 공유하기",
+            btnMoreTests: "더 많은 테스트 해보기",
+            footer: "※ 이 테스트는 재미와 자기 성찰을 위한 비의학적 도구입니다.",
+            shareText: "지금 나는 어디로 새고 있는가 - 내 결과를 확인해보세요!",
+            alertCopySuccess: "링크가 클립보드에 복사되었습니다!",
+            alertShareFail: "공유 기능을 사용할 수 없습니다.",
+            choiceNever: "전혀 아니다",
+            choiceSometimes: "가끔 그렇다",
+            choiceOften: "자주 그렇다",
+          },
+          en: {
+            badge: "Life Energy Drain Diagnostic",
+            title: "Where is my energy leaking?",
+            subtitle: "Lately feeling burnout, lethargy, lack of focus… <br />The problem might not be laziness, but energy drain.",
+            btnStart: "Start",
+            progressText: "Q1. Life energy drain diagnostic in progress",
+            btnPrev: "← Previous",
+            resultIntro: "Your life energy is leaking here",
+            tipsTitle: "Daily energy save strategies",
+            btnRestart: "Retake test",
+            btnShare: "Share result",
+            btnMoreTests: "Try more tests",
+            footer: "※ This test is a non-medical tool for fun and self-reflection.",
+            shareText: "Where is my energy leaking? - Check out my result!",
+            alertCopySuccess: "Link copied to clipboard!",
+            alertShareFail: "Share feature unavailable.",
+            choiceNever: "Not at all",
+            choiceSometimes: "Sometimes",
+            choiceOften: "Often",
+          },
+        };
+
+        const defaultLang = "ko";
+        const supportedLangs = ["ko", "en"];
+        let currentLang = defaultLang;
+
+        function t(key, vars = {}) {
+          const langTable = translations[currentLang] || translations.ko;
+          const template = langTable?.[key] ?? translations.ko?.[key] ?? key;
+          if (typeof template !== "string") {
+            return template;
+          }
+          return template.replace(/\{(\w+)\}/g, (_, token) =>
+            vars[token] !== undefined ? vars[token] : `{${token}}`
+          );
+        }
+
+        // 질문 데이터에 영어 번역 추가
+        const questionsEn = [
+          {
+            id: "peopleDrain",
+            title: "I often feel drained after meeting people.",
+            type: "relation",
+            choices: [
+              { label: t("choiceNever"), value: 0 },
+              { label: t("choiceSometimes"), value: 1 },
+              { label: t("choiceOften"), value: 2 },
+            ],
+          },
+          {
+            id: "peoplePleaser",
+            title: "I usually say yes to requests even when I don't want to.",
+            type: "relation",
+            choices: [
+              { label: t("choiceNever"), value: 0 },
+              { label: t("choiceSometimes"), value: 1 },
+              { label: t("choiceOften"), value: 2 },
+            ],
+          },
+          {
+            id: "tooManyTasks",
+            title: "I have too many things to do and feel like 'my life is disappearing'.",
+            type: "overwork",
+            choices: [
+              { label: t("choiceNever"), value: 0 },
+              { label: t("choiceSometimes"), value: 1 },
+              { label: t("choiceOften"), value: 2 },
+            ],
+          },
+          {
+            id: "noRest",
+            title: "I'm tired but feel pressured that 'I shouldn't rest now'.",
+            type: "overwork",
+            choices: [
+              { label: t("choiceNever"), value: 0 },
+              { label: t("choiceSometimes"), value: 1 },
+              { label: t("choiceOften"), value: 2 },
+            ],
+          },
+          {
+            id: "emotionSwing",
+            title: "My emotions fluctuate a lot within a day, and energy drains each time.",
+            type: "emotion",
+            choices: [
+              { label: t("choiceNever"), value: 0 },
+              { label: t("choiceSometimes"), value: 1 },
+              { label: t("choiceOften"), value: 2 },
+            ],
+          },
+          {
+            id: "overEmpathy",
+            title: "I over-empathize with others' emotions and get tired together.",
+            type: "emotion",
+            choices: [
+              { label: t("choiceNever"), value: 0 },
+              { label: t("choiceSometimes"), value: 1 },
+              { label: t("choiceOften"), value: 2 },
+            ],
+          },
+          {
+            id: "overthinking",
+            title: "Useless thoughts won't leave my mind, so I sleep late.",
+            type: "thought",
+            choices: [
+              { label: t("choiceNever"), value: 0 },
+              { label: t("choiceSometimes"), value: 1 },
+              { label: t("choiceOften"), value: 2 },
+            ],
+          },
+          {
+            id: "futureWorry",
+            title: "I worry a lot about the future that hasn't even happened yet.",
+            type: "thought",
+            choices: [
+              { label: t("choiceNever"), value: 0 },
+              { label: t("choiceSometimes"), value: 1 },
+              { label: t("choiceOften"), value: 2 },
+            ],
+          },
+          {
+            id: "cantSayNoWork",
+            title: "I can't say 'no' or 'can't do' when it comes to work/study.",
+            type: "overwork",
+            choices: [
+              { label: t("choiceNever"), value: 0 },
+              { label: t("choiceSometimes"), value: 1 },
+              { label: t("choiceOften"), value: 2 },
+            ],
+          },
+          {
+            id: "chatTooMuch",
+            title: "I spend too much energy on chat/DM replies and group chat awareness.",
+            type: "relation",
+            choices: [
+              { label: t("choiceNever"), value: 0 },
+              { label: t("choiceSometimes"), value: 1 },
+              { label: t("choiceOften"), value: 2 },
+            ],
+          },
+        ];
+
+        // 결과 타입별 텍스트에 영어 번역 추가
+        const resultTypesEn = {
+          relation: {
+            title: "Relationship Drain Type",
+            badge: "Energy leaks to people",
+            oneLiner: "You like people but have weak boundaries, so energy keeps leaking.",
+            description: "You're considerate and accommodating, so people say you're nice.\nBut that means you have less energy for yourself.\nYou may have patterns of not being able to say no, reading too much into situations, and burning yourself out to maintain relationships.",
+            tips: [
+              "Try saying 'I'll think about it' at least once today (no immediate answers)",
+              "Don't read messages right away; check when you have mental space",
+              "Gradually reduce appointments with people who always drain you after meeting",
+            ],
+          },
+          overwork: {
+            title: "Overwork Accumulation Type",
+            badge: "Consumed by tasks",
+            oneLiner: "You have willpower and strong responsibility, but that also means high burnout risk.",
+            description: "You work hard for work, study, and goals.\nBut you don't give yourself permission to 'rest is okay',\nso physical and mental fatigue may be gradually building up.",
+            tips: [
+              "Divide today's tasks into 'must do' and 'nice to do'",
+              "Try a 50-min focus, 10-min complete rest (walk/stretch) timer at least once",
+              "Set one day a week to do nothing without guilt",
+            ],
+          },
+          emotion: {
+            title: "Emotion Overspending Type",
+            badge: "Swept by emotional waves",
+            oneLiner: "Your emotional amplitude is large, and so is your energy swing.",
+            description: "You feel joy, sadness, anxiety, and excitement deeply.\nThis sensitivity is a great strength, but unmanaged, it quickly exhausts you.\nRemember that the size of emotion is not the size of the event.",
+            tips: [
+              "Write one line each separating today's events into 'facts' and 'feelings'",
+              "When emotions explode, drink water and think again 5 minutes later",
+              "Reduce SNS/news consumption time by 30 minutes a day",
+            ],
+          },
+          thought: {
+            title: "Overthinking Overload Type",
+            badge: "Brain running 24/7",
+            oneLiner: "Your head never rests, so energy gets sucked into thoughts.",
+            description: "You think a lot and have rich imagination.\nBut tasks to do, past events, and future worries all spin in your head at once,\nso you may lack energy to focus on here and now.",
+            tips: [
+              "Write all thoughts about tasks in a memo app and put them down from your brain for a while",
+              "Turn off screens (phone/PC) 30 minutes before sleep and cool your head with books or music",
+              "Think of and write down just 3 things you were grateful for today",
+            ],
+          },
+        };
+
+        function getQuestions() {
+          return currentLang === "en" ? questionsEn : questions;
+        }
+
+        function getResultTypes() {
+          return currentLang === "en" ? resultTypesEn : resultTypes;
+        }
+
+        function applyTranslations() {
+          document.querySelectorAll("[data-i18n]").forEach((el) => {
+            el.textContent = t(el.dataset.i18n);
+          });
+          document.querySelectorAll("[data-i18n-html]").forEach((el) => {
+            el.innerHTML = t(el.dataset.i18nHtml);
+          });
+        }
+
+        function setLang(lang, options = {}) {
+          const nextLang = translations[lang] ? lang : defaultLang;
+          currentLang = nextLang;
+          document.documentElement.lang = nextLang;
+          localStorage.setItem("preferredLang", nextLang);
+          document.querySelectorAll(".lang-switch button").forEach((button) => {
+            button.classList.toggle("active", button.dataset.lang === nextLang);
+          });
+          applyTranslations();
+          // Update questions if in question section
+          if (!questionSection.classList.contains("hidden") && currentQuestionIndex < getQuestions().length) {
+            showQuestion(currentQuestionIndex);
+          }
+          // Update result if in result section
+          if (!resultSection.classList.contains("hidden")) {
+            showResult();
+          }
+          if (options.updateUrl) {
+            const url = new URL(window.location.href);
+            url.searchParams.set("lang", nextLang);
+            window.history.replaceState({}, "", url);
+          }
+        }
+
+        function detectLang() {
+          const params = new URLSearchParams(window.location.search);
+          const paramLang = params.get("lang");
+          if (supportedLangs.includes(paramLang)) return paramLang;
+          const stored = localStorage.getItem("preferredLang");
+          if (supportedLangs.includes(stored)) return stored;
+          const intlLocale =
+            typeof Intl === "object" && typeof Intl.DateTimeFormat === "function"
+              ? Intl.DateTimeFormat().resolvedOptions().locale
+              : "";
+          const sources = [
+            ...(navigator.languages || []),
+            navigator.language,
+            navigator.userLanguage,
+            intlLocale,
+          ]
+            .filter(Boolean)
+            .map((locale) => locale.toLowerCase());
+          const hasKorean = sources.some((locale) => locale.startsWith("ko"));
+          return hasKorean ? "ko" : "en";
+        }
+
+        document.querySelectorAll(".lang-switch button").forEach((button) => {
+          button.addEventListener("click", () => {
+            setLang(button.dataset.lang, { updateUrl: true });
+          });
+        });
+
+        setLang(detectLang(), { updateUrl: false });
       })();
     </script>
   
