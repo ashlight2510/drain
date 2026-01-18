@@ -597,34 +597,15 @@
             }
           }
 
-          // 결과 데이터
-          const result = getResultTypes()[resultType];
-
-          // 결과 화면 표시
-          questionSection.classList.add("hidden");
-          resultSection.classList.remove("hidden");
-          resultSection.classList.add("fade-in");
-
-          // 결과 내용 채우기
-          document.getElementById("result-badge").textContent = result.badge;
-          document.getElementById("result-title").textContent = result.title;
-          document.getElementById("result-oneliner").textContent =
-            result.oneLiner;
-          document.getElementById("result-description").textContent =
-            result.description;
-
-          // 팁 리스트
-          const tipsList = document.getElementById("result-tips");
-          tipsList.innerHTML = "";
-          result.tips.forEach((tip) => {
-            const li = document.createElement("li");
-            li.className = "flex items-start text-gray-700";
-            li.innerHTML = `
-            <span class="text-purple-500 mr-3 mt-1">•</span>
-            <span class="flex-1 leading-relaxed">${tip}</span>
-          `;
-            tipsList.appendChild(li);
+          // result.html로 리다이렉트
+          const params = new URLSearchParams({
+            type: resultType,
+            relation: scores.relation.toString(),
+            overwork: scores.overwork.toString(),
+            emotion: scores.emotion.toString(),
+            thought: scores.thought.toString()
           });
+          window.location.href = `result.html?${params.toString()}`;
         }
 
         // 다시 시작
